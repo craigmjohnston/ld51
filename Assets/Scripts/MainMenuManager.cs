@@ -1,5 +1,6 @@
 namespace Oatsbarley.LD51
 {
+    using System;
     using System.Collections;
     using UnityEngine;
 
@@ -7,22 +8,42 @@ namespace Oatsbarley.LD51
     {
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private float fadeDuration;
+        [SerializeField] private CanvasGroup frontCover;
+        [SerializeField] private CanvasGroup backCover;
+
+        private void Awake()
+        {
+            this.canvasGroup.alpha = 1;
+            this.frontCover.alpha = 1;
+            this.backCover.alpha = 1;
+        }
+
+        private IEnumerator Start()
+        {
+            yield return new WaitForSeconds(1);
+            yield return this.StartCoroutine(this.Fade(this.frontCover, 0, this.fadeDuration));
+            yield return new WaitForSeconds(1);
+            this.StartCoroutine(this.Fade(this.backCover, 0, this.fadeDuration));
+        }
 
         public void Hide()
         {
-            this.StartCoroutine(this.HideCoroutine());
+            this.StartCoroutine(this.Fade(this.canvasGroup, 0, this.fadeDuration));
         }
 
-        private IEnumerator HideCoroutine()
+        private IEnumerator Fade(CanvasGroup canvasGroup, float to, float duration, Action onFinished = null)
         {
+            float initial = canvasGroup.alpha;
             float start = Time.realtimeSinceStartup;
-            while ((Time.realtimeSinceStartup - start) < this.fadeDuration)
+            while ((Time.realtimeSinceStartup - start) < duration)
             {
                 yield return new WaitForEndOfFrame();
-                this.canvasGroup.alpha = 1 - ((Time.realtimeSinceStartup - start) / this.fadeDuration);
+                float t = (Time.realtimeSinceStartup - start) / this.fadeDuration;
+                canvasGroup.alpha = Mathf.Lerp(initial, to, t);
             }
 
-            this.canvasGroup.alpha = 0;
+            canvasGroup.alpha = to;
+            onFinished?.Invoke();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Oatsbarley.LD51
 
         private void Update()
         {
-            var t = (Time.realtimeSinceStartup - this.startTime) / (this.distance / GameManager.Instance.ItemTravelSpeed);
+            var t = (Time.time - this.startTime) / (this.distance / GameManager.Instance.ItemTravelSpeed);
             this.transform.position = Vector3.Lerp(this.start, this.end, t);
 
             if (t >= 1)
@@ -32,7 +32,7 @@ namespace Oatsbarley.LD51
             this.item = item;
             // todo this.spriteRenderer.sprite = null;
 
-            this.startTime = Time.realtimeSinceStartup;
+            this.startTime = Time.time;
             this.distance = Vector3.Distance(from, to);
             this.transform.position = from;
 

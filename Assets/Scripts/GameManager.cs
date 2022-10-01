@@ -7,9 +7,13 @@ namespace Oatsbarley.LD51
     using Newtonsoft.Json;
     using Oatsbarley.LD51.Data;
     using UnityEngine;
+    using Random = UnityEngine.Random;
 
     public class GameManager : MonoBehaviour
     {
+        private static GameManager instance;
+        public static GameManager Instance => GameManager.instance;
+
         [SerializeField] private Camera mainCamera;
         [SerializeField] private bool autotickEnabled;
         [SerializeField] private float autotickInterval;
@@ -24,26 +28,29 @@ namespace Oatsbarley.LD51
         [SerializeField] private FactoryNode factoryPrefab;
 
         [SerializeField] private MainMenuManager mainMenuManager;
+        [SerializeField] private CanvasGroup gameUiCanvasGroup;
 
         private float lastTick = 0;
-
         private Dictionary<string, Item> items;
         private Dictionary<string, Recipe> recipes;
         private JsonSerializerSettings serializerSettings;
         private List<ResourceNode> firstResourceNodes;
+        private List<SpawnSegment> spawnSegments;
+        private float startTime;
+        private bool isPaused = false;
 
-        private static GameManager instance;
+        public bool IsPlaying { get; private set; } = false;
+        public float ItemTravelSpeed => this.itemTravelSpeed;
 
         public event Action Ticked;
-
-        public static GameManager Instance => GameManager.instance;
-
-        public float ItemTravelSpeed => this.itemTravelSpeed;
 
         private void Awake()
         {
             GameManager.instance = this;
-            this.lastTick = Time.realtimeSinceStartup;
+            this.lastTick = Time.time;
+            this.gameUiCanvasGroup.alpha = 0;
+            this.gameUiCanvasGroup.interactable = false;
+            this.gameUiCanvasGroup.blocksRaycasts = false;
         }
 
         private void Start()
@@ -70,26 +77,28 @@ namespace Oatsbarley.LD51
 
         private void RunLevel(TextAsset levelJson)
         {
+            this.IsPlaying = false;
+
             var definition = JsonConvert.DeserializeObject<Level>(levelJson.text, this.serializerSettings);
             this.firstResourceNodes = new List<ResourceNode>();
 
             foreach (var levelNode in definition.InitialSpawn)
             {
-                switch (levelNode.Type)
-                {
-                    case LevelNodeType.Resource:
-                        var resourceNode = this.SpawnResource(levelNode.Item, new Vector2(levelNode.Position[0], levelNode.Position[1]));
-                        resourceNode.Populated += this.OnFirstResourcePopulated;
-                        this.firstResourceNodes.Add(resourceNode);
-                        break;
-                    case LevelNodeType.Consumer:
-                        this.SpawnConsumer(levelNode.Item, new Vector2(levelNode.Position[0], levelNode.Position[1]));
-                        break;
-                    case LevelNodeType.Factory: // todo
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                this.SpawnNode(levelNode);
+            }
+
+            this.firstResourceNodes = FindObjectsOfType<ResourceNode>().ToList();
+            foreach (var resourceNode in this.firstResourceNodes)
+            {
+                resourceNode.Populated += this.OnFirstResourcePopulated;
+            }
+
+            this.spawnSegments = definition.Spawns.ToList();
+            float total = -5;
+            foreach (var segment in this.spawnSegments)
+            {
+                total += 10; //segment.Time;
+                segment.Time = total;
             }
         }
 
@@ -103,14 +112,94 @@ namespace Oatsbarley.LD51
             this.firstResourceNodes = null;
 
             this.mainMenuManager.Hide();
+
+            this.startTime = Time.time;
+            this.IsPlaying = true;
+            this.gameUiCanvasGroup.alpha = 1;
+            this.gameUiCanvasGroup.interactable = true;
+            this.gameUiCanvasGroup.blocksRaycasts = true;
+        }
+
+        [Button()]
+        public void TogglePause()
+        {
+            Time.timeScale = this.isPaused ? 1 : 0;
+            this.isPaused = !this.isPaused;
         }
 
         private void Update()
         {
-            if (Time.realtimeSinceStartup - this.lastTick >= this.autotickInterval)
+            if (!this.IsPlaying)
+            {
+                return;
+            }
+
+            // gameplay
+
+            if (Time.time - this.lastTick >= this.autotickInterval)
             {
                 this.Tick();
             }
+
+            if (this.spawnSegments.Any())
+            {
+                if (Time.time - this.startTime >= this.spawnSegments.First().Time)
+                {
+                    var segment = this.spawnSegments.First();
+                    this.spawnSegments.RemoveAt(0);
+                    this.SpawnSegment(segment);
+                }
+            }
+        }
+
+        private void SpawnSegment(SpawnSegment segment)
+        {
+            foreach (var node in segment.Nodes)
+            {
+                this.SpawnNode(node);
+            }
+        }
+
+        private float[] GetNewNodePosition()
+        {
+            return new float[]
+            {
+                Random.value * 10 - 5,
+                Random.value * 10 - 5
+            };
+        }
+
+        private void SpawnNode(LevelNode node)
+        {
+            var position = node.Position;
+            if (position == null)
+            {
+                position = this.GetNewNodePosition();
+            }
+
+            switch (node.Type)
+            {
+                case LevelNodeType.Resource:
+                    this.SpawnResource(node.Item, new Vector2(position[0], position[1]));
+                    break;
+                case LevelNodeType.Consumer:
+                    this.SpawnConsumer(node.Item, new Vector2(position[0], position[1]));
+                    break;
+                case LevelNodeType.Factory: // todo
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void OnBackgroundDoubleClicked()
+        {
+            if (!this.IsPlaying)
+            {
+                return;
+            }
+
+            this.SpawnFactory();
         }
 
         public void SpawnFactory()
@@ -129,7 +218,7 @@ namespace Oatsbarley.LD51
         {
             var resource = Instantiate(this.resourceNodePrefab);
             resource.Init(resourceItem);
-            // todo position
+            resource.transform.position = position;
 
             return resource;
         }
@@ -138,12 +227,13 @@ namespace Oatsbarley.LD51
         {
             var consumer = Instantiate(this.consumerNodePrefab);
             consumer.Init(neededItem);
+            consumer.transform.position = position;
         }
 
         [Button()]
         public void Tick()
         {
-            this.lastTick = Time.realtimeSinceStartup;
+            this.lastTick = Time.time;
             this.Ticked?.Invoke();
         }
     }

@@ -9,5 +9,31 @@
             "item": "item_iron",
             "position": [0, 0]
         }
+    ],
+    "spawns": [
+        {
+            "nodes": [
+                {
+                    "type": "consumer",
+                    "item": "item_iron_bar"
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "type": "consumer",
+                    "item": "item_iron_bar"
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "type": "consumer",
+                    "item": "item_iron"
+                }
+            ]
+        }
     ]
 }

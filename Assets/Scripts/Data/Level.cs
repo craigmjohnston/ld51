@@ -5,6 +5,14 @@ namespace Oatsbarley.LD51.Data
         public string Name { get; set; }
         // spawned immediately
         public LevelNode[] InitialSpawn { get; set; }
+
+        public SpawnSegment[] Spawns { get; set; }
+    }
+
+    public class SpawnSegment
+    {
+        public float Time { get; set; }
+        public LevelNode[] Nodes { get; set; }
     }
 
     public class LevelNode

@@ -35,28 +35,35 @@ namespace Oatsbarley.LD51
             this.connector.SetReceiver(this);
             this.textComponent.text = this.neededItem.Name.ToUpper();
 
-            this.lastReceivedTime = Time.realtimeSinceStartup;
+            this.lastReceivedTime = Time.time;
             this.countdownGameObject.SetActive(false);
         }
 
         private void Update()
         {
+            if (!GameManager.Instance.IsPlaying)
+            {
+                return;
+            }
+
+            // countdown
+
             if (!this.countdownGameObject.activeSelf)
             {
-                if (Time.realtimeSinceStartup - this.lastReceivedTime >= (this.receiveTimeout - this.countdownDuration))
+                if (Time.time - this.lastReceivedTime >= (this.receiveTimeout - this.countdownDuration))
                 {
                     this.countdownGameObject.SetActive(true);
                 }
             }
             else
             {
-                if (Time.realtimeSinceStartup - this.lastReceivedTime < (this.receiveTimeout - this.countdownDuration))
+                if (Time.time - this.lastReceivedTime < (this.receiveTimeout - this.countdownDuration))
                 {
                     this.countdownGameObject.SetActive(false);
                 }
                 else
                 {
-                    var countdown = Mathf.CeilToInt(this.receiveTimeout - (Time.realtimeSinceStartup - this.lastReceivedTime));
+                    var countdown = Mathf.CeilToInt(this.receiveTimeout - (Time.time - this.lastReceivedTime));
                     this.countdownTextComponent.text = Mathf.Max(countdown, 0).ToString();
 
                     if (countdown <= 0)
@@ -81,7 +88,7 @@ namespace Oatsbarley.LD51
         {
             Debug.Log($"Received {item.Name}");
 
-            this.lastReceivedTime = Time.realtimeSinceStartup;
+            this.lastReceivedTime = Time.time;
             if (this.countdownGameObject.activeSelf)
             {
                 this.countdownGameObject.SetActive(false);
