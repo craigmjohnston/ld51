@@ -1,0 +1,10 @@
+[
+    {
+        "tag": "item_iron",
+        "name": "Iron"
+    },
+    {
+        "tag": "item_iron_bar",
+        "name": "Iron Bar"
+    }
+]

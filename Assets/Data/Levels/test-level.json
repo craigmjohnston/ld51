@@ -1,0 +1,13 @@
+{
+    "name": "Test Level #1",
+    "theme": {
+
+    },
+    "initialSpawn": [
+        {
+            "type": "resource",
+            "item": "item_iron",
+            "position": [0, 0]
+        }
+    ]
+}

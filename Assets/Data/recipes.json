@@ -1,0 +1,12 @@
+[
+    {
+        "tag": "recipe_iron_bar",
+        "inputs": [
+            "item_iron",
+            "item_iron"
+        ],
+        "outputs": [
+            "item_iron_bar"
+        ]
+    }
+]
