@@ -1,0 +1,72 @@
+[
+    {
+        "tag": "item_1",
+        "name": "Circle (1)",
+        "value": 1,
+        "spriteName": "shape-1",
+        "colourHex": "#536b36"
+    },
+    {
+        "tag": "item_2",
+        "name": "Oval (2)",
+        "value": 2,
+        "spriteName": "shape-2",
+        "colourHex": "#8b48c7"
+    },
+    {
+        "tag": "item_3",
+        "name": "Triangle (3)",
+        "value": 3,
+        "spriteName": "shape-3",
+        "colourHex": "#72b74e"
+    },
+    {
+        "tag": "item_4",
+        "name": "Square (4)",
+        "value": 4,
+        "spriteName": "shape-4",
+        "colourHex": "#c14a91"
+    },
+    {
+        "tag": "item_5",
+        "name": "Pentagon (5)",
+        "value": 5,
+        "spriteName": "shape-5",
+        "colourHex": "#5dada8"
+    },
+    {
+        "tag": "item_6",
+        "name": "Hexagon (6)",
+        "value": 6,
+        "spriteName": "shape-6",
+        "colourHex": "#d14d37"
+    },
+    {
+        "tag": "item_7",
+        "name": "Heptagon (7)",
+        "value": 7,
+        "spriteName": "shape-7",
+        "colourHex": "#6d6daa"
+    },
+    {
+        "tag": "item_8",
+        "name": "Octagon (8)",
+        "value": 8,
+        "spriteName": "shape-8",
+        "colourHex": "#c49743"
+    },
+    {
+        "tag": "item_9",
+        "name": "Nonagon (9)",
+        "value": 9,
+        "spriteName": "shape-9",
+        "colourHex": "#773634"
+    },
+    {
+        "tag": "item_10",
+        "name": "Decagon (10)",
+        "value": 10,
+        "spriteName": "shape-10",
+        "colourHex": "#d08988"
+    }
+]

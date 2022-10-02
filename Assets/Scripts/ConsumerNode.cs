@@ -1,6 +1,8 @@
 namespace Oatsbarley.LD51
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Oatsbarley.LD51.Data;
     using Oatsbarley.LD51.Interfaces;
     using TMPro;
@@ -33,7 +35,11 @@ namespace Oatsbarley.LD51
         private void Start()
         {
             this.connector.SetReceiver(this);
-            this.textComponent.text = this.neededItem.Name.ToUpper();
+            this.connector.SetInputs(1);
+
+            this.textComponent.text = this.neededItem.Value.ToString();
+            this.backgroundSprite.sprite = this.neededItem.Sprite;
+            this.foregroundSprite.sprite = this.neededItem.Sprite;
 
             this.lastReceivedTime = Time.time;
             this.countdownGameObject.SetActive(false);
@@ -68,13 +74,13 @@ namespace Oatsbarley.LD51
 
                     if (countdown <= 0)
                     {
-                        Debug.LogError("GAME LOST");
+                        GameManager.Instance.LostGame("One of your customers got too impatient.");
                     }
                 }
             }
         }
 
-        public bool CanReceive(Item item)
+        public bool CanReceive(Item item, int inputIndex)
         {
             if (item != this.neededItem)
             {
@@ -84,7 +90,7 @@ namespace Oatsbarley.LD51
             return true;
         }
 
-        public void Receive(Item item)
+        public void Receive(Item item, int inputIndex)
         {
             Debug.Log($"Received {item.Name}");
 
@@ -94,5 +100,10 @@ namespace Oatsbarley.LD51
                 this.countdownGameObject.SetActive(false);
             }
         }
+
+        // public Item[] FilterValidItems(IEnumerable<Item> items)
+        // {
+        //     return items.Where(i => i == this.neededItem).ToArray();
+        // }
     }
 }

@@ -10,6 +10,9 @@ namespace Oatsbarley.LD51
         [SerializeField] private float maxZoom;
         [SerializeField] private float smoothTime;
 
+        [SerializeField] private Vector2 minPosition = new Vector2(-16f, -8.6f);
+        [SerializeField] private Vector2 maxPosition = new Vector2(16f, 8.6f);
+
         private float targetZoom;
         private float velocity;
         private Vector2 targetPosition;
@@ -31,7 +34,14 @@ namespace Oatsbarley.LD51
                 if (Input.mousePosition != this.lastMousePosition)
                 {
                     var worldDelta = this.mainCamera.ScreenToWorldPoint(Input.mousePosition) - this.mainCamera.ScreenToWorldPoint(this.lastMousePosition);
-                    this.mainCamera.transform.position -= worldDelta;
+                    var newPosition = this.mainCamera.transform.position - worldDelta;
+
+                    newPosition = new Vector3(
+                        Mathf.Clamp(newPosition.x, this.minPosition.x, this.maxPosition.x),
+                        Mathf.Clamp(newPosition.y, this.minPosition.y, this.maxPosition.y),
+                        this.mainCamera.transform.position.z);
+
+                    this.mainCamera.transform.position = newPosition;
                 }
 
                 this.lastMousePosition = Input.mousePosition;

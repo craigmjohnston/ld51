@@ -3,12 +3,11 @@ namespace Oatsbarley.LD51
     using System;
     using NaughtyAttributes;
     using Oatsbarley.LD51.Data;
+    using Oatsbarley.LD51.Interfaces;
     using TMPro;
-    using Unity.VisualScripting;
     using UnityEngine;
-    using UnityEngine.Events;
 
-    public class ResourceNode : MonoBehaviour
+    public class ResourceNode : MonoBehaviour, IProducer
     {
         [SerializeField] private Sprite unpopulatedSprite;
         [SerializeField] private Sprite populatedSprite;
@@ -37,9 +36,14 @@ namespace Oatsbarley.LD51
 
         private void Start()
         {
-            this.Unpopulate();
-            this.textComponent.text = this.resourceItem.Name.ToUpper();
+            this.connector.SetProducer(this);
+
+            this.textComponent.text = this.resourceItem.Value.ToString();
+            this.foregroundSprite.sprite = this.resourceItem.Sprite;
+
             GameManager.Instance.Ticked += this.OnTick;
+
+            this.Populate();
         }
 
         private void OnMouseUpAsButton()
@@ -55,9 +59,11 @@ namespace Oatsbarley.LD51
         [Button()]
         public void Populate()
         {
-            this.backgroundSprite.sprite = this.populatedSprite;
-            this.foregroundSprite.sprite = this.populatedSprite;
+            // this.backgroundSprite.sprite = this.populatedSprite;
+            // this.foregroundSprite.sprite = this.populatedSprite;
             this.backgroundSprite.color = this.populatedColor;
+
+            this.connector.SetOutputs(1);
 
             this.IsPopulated = true;
             this.Populated?.Invoke();
@@ -66,9 +72,11 @@ namespace Oatsbarley.LD51
         [Button()]
         public void Unpopulate()
         {
-            this.backgroundSprite.sprite = this.unpopulatedSprite;
-            this.foregroundSprite.sprite = this.unpopulatedSprite;
+            // this.backgroundSprite.sprite = this.unpopulatedSprite;
+            // this.foregroundSprite.sprite = this.unpopulatedSprite;
             this.backgroundSprite.color = this.unpopulatedColor;
+
+            this.connector.SetOutputs(0);
 
             this.IsPopulated = false;
         }
@@ -118,5 +126,12 @@ namespace Oatsbarley.LD51
             GameObject.Destroy(this.gameObject);
             GameManager.Instance.Ticked -= this.OnTick;
         }
+
+        // public Item[] GetPossibleItems(IEnumerable<Item> inputs)
+        // {
+        //     // there aren't ever any inputs to resource nodes
+        //
+        //     return new[] { this.resourceItem };
+        // }
     }
 }

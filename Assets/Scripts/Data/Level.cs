@@ -1,5 +1,8 @@
 namespace Oatsbarley.LD51.Data
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+
     public class Level
     {
         public string Name { get; set; }
@@ -20,6 +23,8 @@ namespace Oatsbarley.LD51.Data
         public LevelNodeType Type { get; set; }
         public Item Item { get; set; }
         public float[] Position { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public FactoryMode FactoryMode { get; set; }
     }
 
     public enum LevelNodeType

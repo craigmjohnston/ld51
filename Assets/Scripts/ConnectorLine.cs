@@ -1,5 +1,6 @@
 namespace Oatsbarley.LD51
 {
+    using System.Linq;
     using Oatsbarley.LD51.Data;
     using TMPro;
     using UnityEngine;
@@ -10,7 +11,7 @@ namespace Oatsbarley.LD51
         [SerializeField] private TextMeshPro textComponent;
         [SerializeField] private float textAngleOffset;
 
-        public void Connect(Connector from, Connector to, Item item)
+        public void Connect(ConnectorWidget from, ConnectorWidget to, Item item)
         {
             var fromPosition = from.transform.position;
             var toPosition = to.transform.position;
@@ -33,6 +34,11 @@ namespace Oatsbarley.LD51
             this.textComponent.transform.Translate(Vector3.up * 0.15f, Space.Self);
 
             this.textComponent.text = "Iron";// item.Name;
+        }
+
+        public void SetPositions(params Vector3[] positions)
+        {
+            this.lineRenderer.SetPositions(positions.Select(p => this.transform.InverseTransformPoint(p)).ToArray());
         }
     }
 }

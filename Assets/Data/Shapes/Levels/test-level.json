@@ -1,0 +1,119 @@
+{
+    "name": "Test Level #1",
+    "theme": {
+
+    },
+    "initialSpawn": [
+        {
+            "type": "resource",
+            "item": "item_1",
+            "position": [0, 0]
+        }
+    ],
+    "spawns": [
+        {
+            "nodes": [
+                {
+                    "type": "consumer",
+                    "item": "item_2"
+                },
+                {
+                    "type": "factory",
+                    "factoryMode": "addition"
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "type": "consumer",
+                    "item": "item_4"
+                },
+                {
+                    "type": "resource",
+                    "item": "item_3"
+                },
+                {
+                    "type": "factory",
+                    "factoryMode": "addition"
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "type": "factory",
+                    "factoryMode": "division"
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "type": "consumer",
+                    "item": "item_5"
+                },
+                {
+                    "type": "factory",
+                    "factoryMode": "addition"
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "type": "consumer",
+                    "item": "item_4"
+                },
+                {
+                    "type": "resource",
+                    "item": "item_1"
+                },
+                {
+                    "type": "factory",
+                    "factoryMode": "addition"
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "type": "consumer",
+                    "item": "item_2"
+                },
+                {
+                    "type": "factory",
+                    "factoryMode": "division"
+                },
+                {
+                    "type": "resource",
+                    "item": "item_3"
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "type": "factory",
+                    "factoryMode": "addition"
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "type": "consumer",
+                    "item": "item_8"
+                },
+                {
+                    "type": "resource",
+                    "item": "item_3"
+                },
+                {
+                    "type": "resource",
+                    "item": "item_1"
+                }
+            ]
+        }
+    ]
+}

@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2.6, y: 2.5}
+  m_SizeDelta: {x: 1.62, y: 1.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1733933451352012192
 MeshRenderer:
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: IRON
+  m_text: 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -127,13 +127,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10.4
+  m_fontSize: 14.75
   m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 1
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -196,14 +196,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733933451360243085}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1733933451740488671}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!212 &1733933451360243084
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -245,7 +245,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6b2f49de6c19bfa4e8882b521f54b41e, type: 3}
   m_Color: {r: 0.5258544, g: 0.8209594, b: 0.9528302, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -307,27 +307,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unpopulatedSprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   populatedSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  unpopulatedColor: {r: 0.699358, g: 0.74521255, b: 0.766, a: 1}
+  unpopulatedColor: {r: 0.95686275, g: 0.8156863, b: 0.3647059, a: 1}
   populatedColor: {r: 0.95686275, g: 0.8156863, b: 0.3647059, a: 1}
   backgroundSprite: {fileID: 1733933451360243084}
   foregroundSprite: {fileID: 1733933452943316421}
   textComponent: {fileID: 1733933451352012193}
   connector: {fileID: 1733933451740488665}
-  onPopulate:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Oatsbarley.LD51.MainMenuManager, Assembly-CSharp
-        m_MethodName: Hide
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1733933451740488665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,10 +325,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d40199b3e14a70b4f029cedb9247fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxInputs: 0
-  maxOutputs: 4
   lineRendererPrefab: {fileID: 5563384052520079862, guid: 15342dc828554194a9e31b0027eeed90, type: 3}
   travellingItemPrefab: {fileID: 6080790920132944458, guid: fd22d35e94cdd23439916d086bb0311a, type: 3}
+  widgetPrefab: {fileID: 5910818266211636691, guid: ee8ccf71d5b1bb04fa59dbe3857ed2a9, type: 3}
+  maxInputs: 0
+  maxOutputs: 4
 --- !u!61 &1733933451740488670
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -396,7 +382,7 @@ Transform:
   m_GameObject: {fileID: 1733933452943316474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
+  m_LocalScale: {x: 0.125, y: 0.125, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1733933451740488671}
@@ -443,7 +429,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fa7ba92aec3c80448a86747ea881f96d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

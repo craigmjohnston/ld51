@@ -15,12 +15,14 @@ namespace Oatsbarley.LD51
         private float startTime;
         private Action onArrive;
 
+        private Vector3 velocity;
+
         private void Update()
         {
             var t = (Time.time - this.startTime) / (this.distance / GameManager.Instance.ItemTravelSpeed);
-            this.transform.position = Vector3.Lerp(this.start, this.end, t);
+            this.transform.position = Vector3.SmoothDamp(this.transform.position, this.end, ref this.velocity, 0.7f);
 
-            if (t >= 1)
+            if (Vector3.Distance(this.transform.position, this.end) < 0.05f)
             {
                 this.onArrive?.Invoke();
                 GameObject.Destroy(this.gameObject);
@@ -30,7 +32,6 @@ namespace Oatsbarley.LD51
         public void Travel(Item item, Vector3 from, Vector3 to, Action onArrive)
         {
             this.item = item;
-            // todo this.spriteRenderer.sprite = null;
 
             this.startTime = Time.time;
             this.distance = Vector3.Distance(from, to);
@@ -40,6 +41,11 @@ namespace Oatsbarley.LD51
             this.end = to;
 
             this.onArrive = onArrive;
+
+            this.spriteRenderer.sprite = item.Sprite;
+            this.spriteRenderer.color = item.Color;
+
+            AudioManager.PlayOnce("hit");
         }
     }
 }

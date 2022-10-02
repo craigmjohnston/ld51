@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3744578466374362808
 Transform:
   m_ObjectHideFlags: 0
@@ -108,14 +108,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3744578467260145840}
-  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3744578467839523642}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &3744578467260145854
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 06167afe3a3e5874b88e5eccc8b351f6, type: 3}
   m_Color: {r: 0.48476183, g: 0.8018868, b: 0.36690104, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -203,8 +203,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 3, y: 2.25}
+  m_AnchoredPosition: {x: -0.042, y: 0.012}
+  m_SizeDelta: {x: 3, y: 2.99}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3744578467412357692
 MeshRenderer:
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: IRON BAR
+  m_text: +
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -277,8 +277,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -295,13 +295,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 9.9
+  m_fontSize: 26.75
   m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 1
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 3744578467839523645}
   - component: {fileID: 3744578467839523644}
   - component: {fileID: 3744578467839523643}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Factory Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,10 +389,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d40199b3e14a70b4f029cedb9247fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxInputs: 4
-  maxOutputs: 1
   lineRendererPrefab: {fileID: 5563384052520079862, guid: 15342dc828554194a9e31b0027eeed90, type: 3}
   travellingItemPrefab: {fileID: 6080790920132944458, guid: fd22d35e94cdd23439916d086bb0311a, type: 3}
+  widgetPrefab: {fileID: 5910818266211636691, guid: ee8ccf71d5b1bb04fa59dbe3857ed2a9, type: 3}
+  maxInputs: 2
+  maxOutputs: 4
 --- !u!61 &3744578467839523644
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -433,6 +434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundSprite: {fileID: 3744578467260145854}
   foregroundSprite: {fileID: 3744578466374362809}
+  additionColour: {r: 0.48627454, g: 0.8000001, b: 0.36862746, a: 1}
+  divisionColour: {r: 0.8773585, g: 0.053800307, b: 0.16595829, a: 1}
   textComponent: {fileID: 3744578467412357695}
   connector: {fileID: 3744578467839523645}
-  recipe: {fileID: 11400000, guid: 0e755287727b7bc4aa7d7429f7ad4735, type: 2}
